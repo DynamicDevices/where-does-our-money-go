@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { Country, TaxData, SpendingData, HistoricalData } from '../types';
 import { fetchCountries, fetchTaxData, fetchSpendingData, fetchHistoricalData } from '../data/api';
 
@@ -76,10 +76,4 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 };
 
-export const useData = (): DataContextType => {
-  const context = useContext(DataContext);
-  if (context === undefined) {
-    throw new Error('useData must be used within a DataProvider');
-  }
-  return context;
-}; 
+ 

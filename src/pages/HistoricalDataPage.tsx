@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useData } from '../context/DataContext';
+import { useData } from '../hooks/useData';
 import { Line } from 'react-chartjs-2';
 import { DollarSign, Shield } from 'lucide-react';
 import { formatPercentage } from '../data/api';

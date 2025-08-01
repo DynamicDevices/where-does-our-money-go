@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useData } from '../context/DataContext';
+import { useData } from '../hooks/useData';
 import { Bar, Line, Pie } from 'react-chartjs-2';
 import {
   Chart as ChartJS,

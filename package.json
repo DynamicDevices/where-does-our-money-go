@@ -21,30 +21,36 @@
     "version:update": "node scripts/version-update.js"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.1",
-    "chart.js": "^4.4.0",
-    "react-chartjs-2": "^5.2.0",
-    "lucide-react": "^0.263.1",
-    "framer-motion": "^10.16.4",
-    "react-query": "^3.39.3",
     "axios": "^1.5.0",
-    "date-fns": "^2.30.0",
+    "chart.js": "^4.4.0",
     "clsx": "^2.0.0",
+    "date-fns": "^2.30.0",
+    "framer-motion": "^10.16.4",
+    "lucide-react": "^0.263.1",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.3",
+    "react-router-dom": "^6.8.1",
     "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "@vitest/coverage-v8": "^0.34.1",
+    "@vitest/ui": "^0.34.1",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "husky": "^8.0.3",
+    "jsdom": "^22.1.0",
     "lint-staged": "^13.2.3",
     "postcss": "^8.4.27",
     "prettier": "^3.0.0",
@@ -52,13 +58,7 @@
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vitest": "^0.34.1",
-    "@vitest/ui": "^0.34.1",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/user-event": "^14.4.3",
-    "jsdom": "^22.1.0",
-    "vitest-axe": "^0.1.0",
-    "@vitest/coverage-v8": "^0.34.1"
+    "vitest-axe": "^0.1.0"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -88,4 +88,4 @@
     "url": "https://github.com/DynamicDevices/where-does-our-money-go.git"
   },
   "homepage": "https://dynamicdevices.github.io/where-does-our-money-go"
-} 
+}

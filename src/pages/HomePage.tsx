@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useData } from '../context/DataContext';
+import { useData } from '../hooks/useData';
 import { Globe, BarChart3, TrendingUp, Users, DollarSign, Shield, BookOpen } from 'lucide-react';
 import { formatNumber, formatPercentage } from '../data/api';
 
