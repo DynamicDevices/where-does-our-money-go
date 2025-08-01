@@ -240,6 +240,19 @@ interface SpendingData {
 - **Accessibility score**: 100% axe-core
 - **SEO score**: 90%+ Lighthouse
 
+## 📄 **Licensing Information**
+
+### License Structure
+- **Educational Content**: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+- **Software Code**: MIT License
+- **Data**: Public domain (government statistics)
+
+### License Requirements
+- **Attribution**: Users must credit the original work
+- **ShareAlike**: Derivatives must use the same license
+- **Commercial Use**: Allowed with proper attribution
+- **Educational Use**: Encouraged and supported
+
 ## 🔐 **Security Considerations**
 
 ### Data Security

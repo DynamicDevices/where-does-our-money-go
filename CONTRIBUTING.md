@@ -116,4 +116,4 @@ We are committed to providing a welcoming and inclusive environment. Please be r
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the MIT License. 
+By contributing, you agree that your contributions will be licensed under the Creative Commons Attribution-ShareAlike 4.0 International License for educational content and the MIT License for software components. 
