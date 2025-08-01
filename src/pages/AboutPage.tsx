@@ -208,12 +208,12 @@ const AboutPage: React.FC = () => {
             Have questions, suggestions, or want to contribute? We'd love to hear from you!
           </p>
           <div className="flex justify-center space-x-4">
-            <a
-              href="https://github.com/yourusername/where-does-our-money-go"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary-600 hover:text-primary-700 flex items-center"
-            >
+                          <a
+                href="https://github.com/DynamicDevices/where-does-our-money-go"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-600 hover:text-primary-700 flex items-center"
+              >
               <ExternalLink className="w-4 h-4 mr-2" />
               GitHub Repository
             </a>

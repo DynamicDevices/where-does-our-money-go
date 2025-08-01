@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex space-x-4">
               <a
-                href="https://github.com/yourusername/where-does-our-money-go"
+                href="https://github.com/DynamicDevices/where-does-our-money-go"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-secondary-300 hover:text-white transition-colors duration-200"

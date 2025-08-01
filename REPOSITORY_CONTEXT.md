@@ -274,6 +274,8 @@ interface SpendingData {
 - **Repository**: where-does-our-money-go
 - **Primary Branch**: main
 - **Deployment**: GitHub Pages
+- **Company**: Dynamic Devices Ltd
+- **Contact**: info@dynamicdevices.co.uk
 
 ### Critical Files (DO NOT DELETE)
 - `package.json` - Dependencies and scripts
@@ -286,5 +288,6 @@ interface SpendingData {
 
 **Last Updated**: December 19, 2024  
 **Version**: 1.0.0  
-**Maintainer**: Repository Owner  
+**Maintainer**: Dynamic Devices Ltd  
+**Contact**: info@dynamicdevices.co.uk  
 **Status**: Production Ready ✅ 

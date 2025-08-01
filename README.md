@@ -116,4 +116,4 @@ See the [LICENSE](LICENSE) file for full details.
 
 ## 📞 Support
 
-If you have questions or need help, please open an issue on GitHub or contact us at [your-email@example.com].
+If you have questions or need help, please open an issue on GitHub or contact us at info@dynamicdevices.co.uk.
