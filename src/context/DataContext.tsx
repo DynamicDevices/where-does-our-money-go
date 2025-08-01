@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { Country, TaxData, SpendingData, HistoricalData } from '../types';
 import { fetchCountries, fetchTaxData, fetchSpendingData, fetchHistoricalData } from '../data/api';
 
-interface DataContextType {
+export interface DataContextType {
   countries: Country[];
   taxData: TaxData[];
   spendingData: SpendingData[];
@@ -17,6 +17,8 @@ interface DataContextType {
 }
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
+
+export { DataContext };
 
 interface DataProviderProps {
   children: ReactNode;
