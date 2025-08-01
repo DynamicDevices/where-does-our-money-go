@@ -1,7 +1,6 @@
 # Where Does Our Money Go?
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A comprehensive educational website that explores how taxation is spent across different countries. This interactive platform helps users understand government spending, tax rates, and how public money is allocated.
 
@@ -100,10 +99,11 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## 📄 License
 
-This project is licensed under the **Creative Commons Attribution-ShareAlike 4.0 International License** for educational content and the **MIT License** for software components.
+This project is licensed under the **Creative Commons Attribution-ShareAlike 4.0 International License**.
 
-- **Educational Content**: CC BY-SA 4.0 - Allows sharing and adaptation with attribution
-- **Software Code**: MIT License - Allows commercial use and modification
+- **All Content**: CC BY-SA 4.0 - Allows sharing and adaptation with attribution
+- **Educational Use**: Encouraged and supported
+- **Commercial Use**: Allowed with proper attribution
 
 See the [LICENSE](LICENSE) file for full details.
 

@@ -243,8 +243,7 @@ interface SpendingData {
 ## 📄 **Licensing Information**
 
 ### License Structure
-- **Educational Content**: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
-- **Software Code**: MIT License
+- **All Content**: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 - **Data**: Public domain (government statistics)
 
 ### License Requirements
