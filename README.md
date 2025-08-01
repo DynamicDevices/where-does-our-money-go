@@ -15,6 +15,26 @@
 
 A comprehensive educational website that explores how taxation is spent across different countries. This interactive platform helps users understand government spending, tax rates, and how public money is allocated.
 
+## 🌐 Live Site
+
+**[🚀 View Live Site](https://dynamicdevices.github.io/where-does-our-money-go/)** | **[📊 Demo Data](https://dynamicdevices.github.io/where-does-our-money-go/compare)** | **[📈 Historical Trends](https://dynamicdevices.github.io/where-does-our-money-go/historical)**
+
+### 🎯 What You Can Do:
+- **Compare Countries**: See how different nations tax and spend
+- **Explore Historical Data**: Track changes over time
+- **Interactive Charts**: Hover and click to explore data
+- **Educational Content**: Learn about taxation and government spending
+- **Mobile Friendly**: Works perfectly on all devices
+
+### 📱 Quick Start:
+1. **Visit the live site** above
+2. **Select countries** to compare
+3. **Choose chart types** (Bar, Line, Pie)
+4. **Explore historical trends** over time
+5. **Read educational content** in the About section
+
+---
+
 ## 🌍 Features
 
 - **Country Comparison**: Compare tax rates and government spending between countries
