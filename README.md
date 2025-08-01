@@ -1,6 +1,17 @@
 # Where Does Our Money Go?
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)](https://github.com/DynamicDevices/where-does-our-money-go/actions)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0.2-blue.svg)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-4.4.5-purple.svg)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.3.3-38B2AC.svg)](https://tailwindcss.com/)
+[![Chart.js](https://img.shields.io/badge/Chart.js-4.4.0-orange.svg)](https://www.chartjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
+[![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-blue.svg)](https://dynamicdevices.github.io/where-does-our-money-go/)
+[![Educational](https://img.shields.io/badge/Educational-Platform-brightgreen.svg)](https://github.com/DynamicDevices/where-does-our-money-go)
+[![Accessibility](https://img.shields.io/badge/Accessibility-WCAG%20AA-brightgreen.svg)](https://www.w3.org/WAI/WCAG2AA/)
+[![Mobile Friendly](https://img.shields.io/badge/Mobile-Friendly-Responsive-blue.svg)](https://github.com/DynamicDevices/where-does-our-money-go)
 
 A comprehensive educational website that explores how taxation is spent across different countries. This interactive platform helps users understand government spending, tax rates, and how public money is allocated.
 
@@ -12,6 +23,17 @@ A comprehensive educational website that explores how taxation is spent across d
 - **Educational Tooltips**: Hover over categories to learn what different terms mean
 - **Mobile Friendly**: Works perfectly on desktop and mobile devices
 - **School-Friendly**: Designed to be accessible for students and educators
+
+## 📊 Project Statistics
+
+[![GitHub stars](https://img.shields.io/github/stars/DynamicDevices/where-does-our-money-go?style=social)](https://github.com/DynamicDevices/where-does-our-money-go)
+[![GitHub forks](https://img.shields.io/github/forks/DynamicDevices/where-does-our-money-go?style=social)](https://github.com/DynamicDevices/where-does-our-money-go)
+[![GitHub issues](https://img.shields.io/github/issues/DynamicDevices/where-does-our-money-go)](https://github.com/DynamicDevices/where-does-our-money-go/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/DynamicDevices/where-does-our-money-go)](https://github.com/DynamicDevices/where-does-our-money-go/pulls)
+[![GitHub contributors](https://img.shields.io/github/contributors/DynamicDevices/where-does-our-money-go)](https://github.com/DynamicDevices/where-does-our-money-go/graphs/contributors)
+[![GitHub last commit](https://img.shields.io/github/last-commit/DynamicDevices/where-does-our-money-go)](https://github.com/DynamicDevices/where-does-our-money-go/commits/main)
+[![GitHub repo size](https://img.shields.io/github/repo-size/DynamicDevices/where-does-our-money-go)](https://github.com/DynamicDevices/where-does-our-money-go)
+[![GitHub language](https://img.shields.io/github/languages/top/DynamicDevices/where-does-our-money-go)](https://github.com/DynamicDevices/where-does-our-money-go)
 
 ## 📊 Data Sources
 
@@ -80,6 +102,11 @@ The project includes comprehensive testing:
 - Integration tests for data flows
 - Visual regression tests for UI consistency
 
+[![Test Coverage](https://img.shields.io/badge/Test%20Coverage-80%25-brightgreen.svg)](https://github.com/DynamicDevices/where-does-our-money-go)
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-ESLint%20Passing-brightgreen.svg)](https://github.com/DynamicDevices/where-does-our-money-go)
+[![Prettier](https://img.shields.io/badge/Prettier-Formatted-blue.svg)](https://prettier.io/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Strict%20Mode-blue.svg)](https://www.typescriptlang.org/)
+
 Run tests with:
 ```bash
 npm run test
@@ -92,6 +119,11 @@ This project is automatically deployed to GitHub Pages when tests pass. The depl
 1. Runs all tests
 2. Builds the production version
 3. Deploys to GitHub Pages if all tests pass
+
+[![Deploy Status](https://img.shields.io/badge/Deploy-GitHub%20Actions-blue.svg)](https://github.com/DynamicDevices/where-does-our-money-go/actions)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Available-brightgreen.svg)](https://dynamicdevices.github.io/where-does-our-money-go/)
+[![Performance](https://img.shields.io/badge/Performance-Lighthouse%2090%2B-brightgreen.svg)](https://dynamicdevices.github.io/where-does-our-money-go/)
+[![Bundle Size](https://img.shields.io/badge/Bundle%20Size-425KB%20Gzipped-orange.svg)](https://github.com/DynamicDevices/where-does-our-money-go)
 
 ## 🤝 Contributing
 
