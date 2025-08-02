@@ -159,7 +159,8 @@ describe('API Functions', () => {
       expect(result.length).toBeGreaterThan(0);
       expect(result[0]).toHaveProperty('countryCode');
       expect(result[0]).toHaveProperty('year');
-      expect(result[0]).toHaveProperty('gdp');
+      expect(result[0]).toHaveProperty('taxData');
+      expect(result[0]).toHaveProperty('spendingData');
     });
 
     it('should return historical data with correct structure', async () => {
@@ -169,9 +170,33 @@ describe('API Functions', () => {
         expect(historicalData).toMatchObject({
           countryCode: expect.any(String),
           year: expect.any(Number),
-          gdp: expect.any(Number),
-          taxRevenue: expect.any(Number),
-          spending: expect.any(Number)
+          taxData: expect.any(Object),
+          spendingData: expect.any(Object)
+        });
+        
+        // Check taxData structure
+        expect(historicalData.taxData).toMatchObject({
+          countryCode: expect.any(String),
+          year: expect.any(Number),
+          totalTaxRevenue: expect.any(Number),
+          taxRevenueAsGDP: expect.any(Number),
+          personalIncomeTax: expect.any(Number),
+          corporateTax: expect.any(Number),
+          vatSalesTax: expect.any(Number),
+          socialSecurity: expect.any(Number),
+          otherTaxes: expect.any(Number)
+        });
+        
+        // Check spendingData structure
+        expect(historicalData.spendingData).toMatchObject({
+          countryCode: expect.any(String),
+          year: expect.any(Number),
+          totalSpending: expect.any(Number),
+          spendingAsGDP: expect.any(Number),
+          health: expect.any(Number),
+          education: expect.any(Number),
+          defense: expect.any(Number),
+          socialProtection: expect.any(Number)
         });
       });
     });

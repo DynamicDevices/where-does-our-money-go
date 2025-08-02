@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { act } from 'react';
 import { DataProvider } from './DataContext';
 
 // Mock the API functions
@@ -27,12 +28,14 @@ describe('DataProvider', () => {
     vi.mocked(fetchHistoricalData).mockResolvedValue([]);
   });
 
-  it('should render children', () => {
-    render(
-      <DataProvider>
-        <TestComponent />
-      </DataProvider>
-    );
+  it('should render children', async () => {
+    await act(async () => {
+      render(
+        <DataProvider>
+          <TestComponent />
+        </DataProvider>
+      );
+    });
 
     expect(screen.getByTestId('test-component')).toBeInTheDocument();
   });
@@ -40,11 +43,13 @@ describe('DataProvider', () => {
   it('should call API functions on mount', async () => {
     const { fetchCountries, fetchTaxData, fetchSpendingData, fetchHistoricalData } = await import('../data/api');
     
-    render(
-      <DataProvider>
-        <TestComponent />
-      </DataProvider>
-    );
+    await act(async () => {
+      render(
+        <DataProvider>
+          <TestComponent />
+        </DataProvider>
+      );
+    });
 
     await waitFor(() => {
       expect(vi.mocked(fetchCountries)).toHaveBeenCalledTimes(1);
@@ -59,11 +64,13 @@ describe('DataProvider', () => {
     const { fetchCountries } = await import('../data/api');
     vi.mocked(fetchCountries).mockRejectedValue(new Error(errorMessage));
 
-    render(
-      <DataProvider>
-        <TestComponent />
-      </DataProvider>
-    );
+    await act(async () => {
+      render(
+        <DataProvider>
+          <TestComponent />
+        </DataProvider>
+      );
+    });
 
     await waitFor(() => {
       // The component should still render even with errors
@@ -83,11 +90,13 @@ describe('DataProvider', () => {
     vi.mocked(fetchCountries).mockResolvedValue(mockCountries);
     vi.mocked(fetchTaxData).mockResolvedValue(mockTaxData);
 
-    render(
-      <DataProvider>
-        <TestComponent />
-      </DataProvider>
-    );
+    await act(async () => {
+      render(
+        <DataProvider>
+          <TestComponent />
+        </DataProvider>
+      );
+    });
 
     await waitFor(() => {
       expect(vi.mocked(fetchCountries)).toHaveBeenCalled();

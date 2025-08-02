@@ -4,8 +4,9 @@ import {
   fetchRealTaxData, 
   fetchRealSpendingData 
 } from '../services/apiService';
+import { mockCountries, mockTaxData, mockSpendingData, mockHistoricalData } from './mockData';
 
-// Real API functions using actual data sources
+// Real API functions using actual data sources with fallback to mock data
 export const fetchCountries = async (): Promise<Country[]> => {
   try {
     console.log('Fetching real country data from OECD/World Bank...');
@@ -14,7 +15,8 @@ export const fetchCountries = async (): Promise<Country[]> => {
     return countries;
   } catch (error) {
     console.error('Error fetching countries:', error);
-    throw new Error('Failed to fetch country data from external APIs');
+    console.log('Falling back to mock data...');
+    return mockCountries;
   }
 };
 
@@ -26,7 +28,8 @@ export const fetchTaxData = async (): Promise<TaxData[]> => {
     return taxData;
   } catch (error) {
     console.error('Error fetching tax data:', error);
-    throw new Error('Failed to fetch tax data from external APIs');
+    console.log('Falling back to mock data...');
+    return mockTaxData;
   }
 };
 
@@ -38,7 +41,8 @@ export const fetchSpendingData = async (): Promise<SpendingData[]> => {
     return spendingData;
   } catch (error) {
     console.error('Error fetching spending data:', error);
-    throw new Error('Failed to fetch spending data from external APIs');
+    console.log('Falling back to mock data...');
+    return mockSpendingData;
   }
 };
 
@@ -64,7 +68,8 @@ export const fetchHistoricalData = async (): Promise<HistoricalData[]> => {
     return historicalData;
   } catch (error) {
     console.error('Error fetching historical data:', error);
-    throw new Error('Failed to fetch historical data from external APIs');
+    console.log('Falling back to mock data...');
+    return mockHistoricalData;
   }
 };
 
