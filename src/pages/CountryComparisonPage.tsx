@@ -62,7 +62,7 @@ const CountryComparisonPage: React.FC = () => {
     return countries.find(c => c.code === code)?.name || code;
   };
 
-  const taxChartData = {
+  const createTaxChartData = () => ({
     labels: filteredTaxData.map(data => getCountryName(data.countryCode)),
     datasets: [
       {
@@ -94,9 +94,9 @@ const CountryComparisonPage: React.FC = () => {
         borderWidth: 1,
       },
     ],
-  };
+  });
 
-  const spendingChartData = {
+  const createSpendingChartData = () => ({
     labels: filteredSpendingData.map(data => getCountryName(data.countryCode)),
     datasets: [
       {
@@ -128,7 +128,7 @@ const CountryComparisonPage: React.FC = () => {
         borderWidth: 1,
       },
     ],
-  };
+  });
 
   const getChartOptions = () => {
     if (chartType === 'pie') {
@@ -231,7 +231,7 @@ const CountryComparisonPage: React.FC = () => {
       return <Pie data={pieData} options={options} />;
     }
     
-    const data = activeTab === 'tax' ? taxChartData : spendingChartData;
+    const data = activeTab === 'tax' ? createTaxChartData() : createSpendingChartData();
     
     switch (chartType) {
       case 'bar':
