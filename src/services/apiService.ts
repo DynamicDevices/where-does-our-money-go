@@ -6,6 +6,10 @@ const API_CONFIG = {
   WORLD_BANK_BASE_URL: 'https://api.worldbank.org/v2',
   IMF_BASE_URL: 'https://www.imf.org/external/datamapper/api/v1',
   TIMEOUT: 10000, // 10 seconds
+  // API Keys from environment variables
+  OECD_API_KEY: import.meta.env.VITE_OECD_API_KEY,
+  WORLD_BANK_API_KEY: import.meta.env.VITE_WORLD_BANK_API_KEY,
+  IMF_API_KEY: import.meta.env.VITE_IMF_API_KEY,
 };
 
 // OECD API endpoints
@@ -94,11 +98,25 @@ async function fetchApi<T>(url: string, options: { signal?: AbortSignal; headers
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.TIMEOUT);
 
+    // Add authentication headers based on the API being called
+    const authHeaders: Record<string, string> = {};
+    
+    if (url.includes('stats.oecd.org') && API_CONFIG.OECD_API_KEY) {
+      authHeaders['Authorization'] = `Bearer ${API_CONFIG.OECD_API_KEY}`;
+      authHeaders['X-API-Key'] = API_CONFIG.OECD_API_KEY;
+    } else if (url.includes('api.worldbank.org') && API_CONFIG.WORLD_BANK_API_KEY) {
+      authHeaders['Authorization'] = `Bearer ${API_CONFIG.WORLD_BANK_API_KEY}`;
+    } else if (url.includes('imf.org') && API_CONFIG.IMF_API_KEY) {
+      authHeaders['Authorization'] = `Bearer ${API_CONFIG.IMF_API_KEY}`;
+    }
+
     const response = await fetch(url, {
       ...options,
       signal: controller.signal,
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        ...authHeaders,
         ...options.headers,
       },
     });

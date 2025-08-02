@@ -82,6 +82,21 @@ cd where-does-our-money-go
 npm install
 ```
 
+### Environment Setup
+This application requires API keys for accessing official government data sources. Create a `.env` file in the root directory:
+
+```bash
+# API Keys for Data Sources
+# Get these from the respective organizations:
+# - OECD: https://stats.oecd.org/api/
+# - World Bank: https://data.worldbank.org/developers
+# - IMF: https://www.imf.org/en/data
+
+VITE_OECD_API_KEY=your_oecd_api_key_here
+VITE_WORLD_BANK_API_KEY=your_world_bank_api_key_here
+VITE_IMF_API_KEY=your_imf_api_key_here
+```
+
 3. Start the development server:
 ```bash
 npm run dev
@@ -144,6 +159,30 @@ This project is automatically deployed to GitHub Pages when tests pass. The depl
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Available-brightgreen.svg)](https://dynamicdevices.github.io/where-does-our-money-go/)
 [![Performance](https://img.shields.io/badge/Performance-Lighthouse%2090%2B-brightgreen.svg)](https://dynamicdevices.github.io/where-does-our-money-go/)
 [![Bundle Size](https://img.shields.io/badge/Bundle%20Size-425KB%20Gzipped-orange.svg)](https://github.com/DynamicDevices/where-does-our-money-go)
+
+## 🔐 API Authentication Setup
+
+### 1. Get API Keys
+- **OECD API**: Visit https://stats.oecd.org/api/ and register for API access
+- **World Bank API**: Visit https://data.worldbank.org/developers and get an API key
+- **IMF API**: Visit https://www.imf.org/en/data and register for API access
+
+### 2. Local Development
+Create a `.env` file with your API keys (see Environment Setup above).
+
+### 3. GitHub Secrets (for deployment)
+1. Go to your GitHub repository
+2. Click **Settings** → **Secrets and variables** → **Actions**
+3. Click **New repository secret**
+4. Add these secrets:
+   ```
+   OECD_API_KEY=your_oecd_api_key_here
+   WORLD_BANK_API_KEY=your_world_bank_api_key_here
+   IMF_API_KEY=your_imf_api_key_here
+   ```
+
+### 4. Deployment
+The GitHub Actions workflow will automatically use the secrets during deployment.
 
 ## 🤝 Contributing
 

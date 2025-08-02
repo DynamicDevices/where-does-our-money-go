@@ -28,6 +28,15 @@ describe('API Functions', () => {
       expect(result).toEqual(mockCountries);
       expect(fetchRealCountries).toHaveBeenCalledTimes(1);
     });
+
+    it('should handle CORS errors gracefully', async () => {
+      const { fetchRealCountries } = await import('../services/apiService');
+      vi.mocked(fetchRealCountries).mockRejectedValue(new Error('Failed to fetch'));
+
+      await expect(fetchCountries()).rejects.toThrow(
+        'Unable to fetch country data due to browser security restrictions'
+      );
+    });
   });
 
   describe('fetchTaxData', () => {
@@ -53,6 +62,15 @@ describe('API Functions', () => {
 
       expect(result).toEqual(mockTaxData);
       expect(fetchRealTaxData).toHaveBeenCalledTimes(1);
+    });
+
+    it('should handle CORS errors gracefully', async () => {
+      const { fetchRealTaxData } = await import('../services/apiService');
+      vi.mocked(fetchRealTaxData).mockRejectedValue(new Error('Failed to fetch'));
+
+      await expect(fetchTaxData()).rejects.toThrow(
+        'Unable to fetch tax data due to browser security restrictions'
+      );
     });
   });
 
@@ -84,6 +102,15 @@ describe('API Functions', () => {
 
       expect(result).toEqual(mockSpendingData);
       expect(fetchRealSpendingData).toHaveBeenCalledTimes(1);
+    });
+
+    it('should handle CORS errors gracefully', async () => {
+      const { fetchRealSpendingData } = await import('../services/apiService');
+      vi.mocked(fetchRealSpendingData).mockRejectedValue(new Error('Failed to fetch'));
+
+      await expect(fetchSpendingData()).rejects.toThrow(
+        'Unable to fetch spending data due to browser security restrictions'
+      );
     });
   });
 
@@ -135,6 +162,26 @@ describe('API Functions', () => {
       expect(result[0]).toHaveProperty('spendingData');
       expect(result[0].taxData).toEqual(mockTaxData[0]);
       expect(result[0].spendingData).toEqual(mockSpendingData[0]);
+    });
+
+    it('should handle errors from tax data fetch', async () => {
+      const { fetchRealTaxData, fetchRealSpendingData } = await import('../services/apiService');
+      vi.mocked(fetchRealTaxData).mockRejectedValue(new Error('Tax data failed'));
+      vi.mocked(fetchRealSpendingData).mockResolvedValue([]);
+
+      await expect(fetchHistoricalData()).rejects.toThrow(
+        'Unable to fetch historical data due to browser security restrictions'
+      );
+    });
+
+    it('should handle errors from spending data fetch', async () => {
+      const { fetchRealTaxData, fetchRealSpendingData } = await import('../services/apiService');
+      vi.mocked(fetchRealTaxData).mockResolvedValue([]);
+      vi.mocked(fetchRealSpendingData).mockRejectedValue(new Error('Spending data failed'));
+
+      await expect(fetchHistoricalData()).rejects.toThrow(
+        'Unable to fetch historical data due to browser security restrictions'
+      );
     });
   });
 }); 
