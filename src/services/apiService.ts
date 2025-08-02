@@ -79,6 +79,7 @@ interface WorldBankDataItem {
 
 interface WorldBankResponse {
   [index: number]: WorldBankDataItem[];
+  length?: number; // Add length property for array-like behavior
 }
 
 // IMF API response interface
@@ -195,7 +196,7 @@ export const fetchWorldBankGDP = async (countryCode: string, year: number): Prom
   }
 
   const gdpData = response.data[1]?.find((item: WorldBankDataItem) => item.value !== null);
-  return gdpData ? parseFloat(gdpData.value) : 0;
+  return gdpData && gdpData.value ? parseFloat(gdpData.value) : 0;
 };
 
 export const fetchWorldBankPopulation = async (countryCode: string, year: number): Promise<number> => {
@@ -207,7 +208,7 @@ export const fetchWorldBankPopulation = async (countryCode: string, year: number
   }
 
   const populationData = response.data[1]?.find((item: WorldBankDataItem) => item.value !== null);
-  return populationData ? parseInt(populationData.value) : 0;
+  return populationData && populationData.value ? parseInt(populationData.value) : 0;
 };
 
 // IMF API Functions
