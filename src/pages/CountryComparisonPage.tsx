@@ -46,6 +46,14 @@ const CountryComparisonPage: React.FC = () => {
     return countries.find(c => c.code === code)?.name || code;
   };
 
+  // Group countries by region
+  const groupedCountries = {
+    'North America': countries.filter(c => ['USA', 'CAN', 'MEX'].includes(c.code)),
+    'Europe': countries.filter(c => ['GBR', 'DEU', 'FRA', 'ITA', 'ESP', 'NLD', 'SWE', 'NOR', 'DNK', 'CHE', 'AUT', 'BEL', 'POL'].includes(c.code)),
+    'Asia-Pacific': countries.filter(c => ['JPN', 'AUS', 'KOR', 'SGP', 'NZL', 'CHN', 'IND'].includes(c.code)),
+    'Other Regions': countries.filter(c => ['BRA', 'RUS', 'TUR', 'ZAF'].includes(c.code)),
+  };
+
   const createTaxChartData = () => ({
     labels: filteredTaxData.map(data => getCountryName(data.countryCode)),
     datasets: [
@@ -318,23 +326,30 @@ const CountryComparisonPage: React.FC = () => {
               <label className="block text-sm font-medium text-secondary-700 mb-2">
                 Select Countries
               </label>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                {countries.map((country) => (
-                  <label key={country.code} className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      checked={selectedCountries.includes(country.code)}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setSelectedCountries([...selectedCountries, country.code]);
-                        } else {
-                          setSelectedCountries(selectedCountries.filter(c => c !== country.code));
-                        }
-                      }}
-                      className="rounded border-secondary-300 text-primary-600 focus:ring-primary-500"
-                    />
-                    <span className="text-sm text-secondary-700">{country.name}</span>
-                  </label>
+              <div className="space-y-4">
+                {Object.entries(groupedCountries).map(([region, countries]) => (
+                  <div key={region} className="border border-secondary-200 rounded-lg p-4">
+                    <h3 className="text-lg font-semibold mb-3 text-secondary-900">{region}</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                      {countries.map((country) => (
+                        <label key={country.code} className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            checked={selectedCountries.includes(country.code)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setSelectedCountries([...selectedCountries, country.code]);
+                              } else {
+                                setSelectedCountries(selectedCountries.filter(c => c !== country.code));
+                              }
+                            }}
+                            className="rounded border-secondary-300 text-primary-600 focus:ring-primary-500"
+                          />
+                          <span className="text-sm text-secondary-700">{country.name}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
