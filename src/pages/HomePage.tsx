@@ -42,14 +42,14 @@ const HomePage: React.FC = () => {
     {
       icon: Users,
       title: 'Population Data',
-      description: 'Understand the scale with population and GDP information.',
+      description: 'View population and GDP data for all countries in the comparison tool.',
       href: '/compare',
       color: 'bg-warning-500',
     },
     {
       icon: DollarSign,
       title: 'Tax Breakdown',
-      description: 'See the different types of taxes and their percentages.',
+      description: 'Compare detailed tax breakdowns including income, corporate, and sales taxes.',
       href: '/compare',
       color: 'bg-danger-500',
     },
