@@ -64,7 +64,7 @@ const HomePage: React.FC = () => {
   ];
 
   if (loading) {
-    return <LoadingState message="Loading real country and economic data from international sources..." />;
+    return <LoadingState />;
   }
 
   return (
