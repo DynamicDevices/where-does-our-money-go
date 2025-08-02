@@ -4,17 +4,12 @@ import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/where-does-our-money-go/',
   plugins: [react()],
   resolve: {
     alias: {
       '@': resolve('./src'),
     },
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./src/test/setup.ts'],
-    css: true,
   },
   server: {
     port: 3000,
