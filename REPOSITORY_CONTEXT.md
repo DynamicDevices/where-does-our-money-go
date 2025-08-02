@@ -10,6 +10,24 @@ This document tracks critical information about the repository to ensure consist
 **Current Version**: 1.0.0  
 **Status**: Production Ready  
 
+## 🚨 **CRITICAL: NO MOCK DATA POLICY**
+
+**⚠️ IMPORTANT: This application uses ONLY real API data from official sources. Mock data has been completely removed.**
+
+### Data Source Requirements:
+- **ONLY real API calls** to OECD, World Bank, IMF, and other official government sources
+- **NO mock data files** - All data must come from live APIs
+- **NO fallback to mock data** - If APIs fail, show appropriate error messages
+- **Real-time data fetching** - Always fetch fresh data from authoritative sources
+- **Source attribution required** - All data must be properly attributed to official sources
+- **Data validation** - Cross-reference data with multiple authoritative sources when possible
+
+### Why No Mock Data:
+- **Educational integrity** - Students and policymakers rely on accurate data
+- **Source transparency** - Users must know exactly where data comes from
+- **Real-world relevance** - Data must reflect current government statistics
+- **Academic credibility** - Educational platforms require verified, authoritative data
+
 ## 📁 **Critical File Structure**
 
 ### Core Application Files
@@ -20,8 +38,9 @@ src/
 ├── types/index.ts        # TypeScript definitions - CRITICAL for data integrity
 ├── context/DataContext.tsx # Global state management
 ├── data/
-│   ├── api.ts           # API functions and data fetching
-│   └── mockData.ts      # Mock data - UPDATE CAREFULLY
+│   └── api.ts           # API functions and data fetching (REAL API ONLY)
+├── services/
+│   └── apiService.ts    # Real API service functions
 ├── pages/               # Page components
 ├── components/          # Reusable components
 └── styles/index.css     # Global styles and Tailwind imports
@@ -135,13 +154,14 @@ interface SpendingData {
 ### Adding New Countries
 1. **VERIFY DATA ACCURACY FIRST** - Ensure all data comes from official government sources
 2. **VERIFY ALL SOURCE LINKS** - Test every URL to ensure it's active and accessible
-3. Add to `mockCountries` in `src/data/mockData.ts`
-4. Add corresponding tax data to `mockTaxData`
-5. Add corresponding spending data to `mockSpendingData`
+3. **ADD TO REAL API SOURCES ONLY** - Update OECD, World Bank, or IMF API endpoints to include new country
+4. **NO MOCK DATA** - Never add mock data; only use real API responses
+5. **UPDATE API SERVICE** - Modify `src/services/apiService.ts` to fetch data for new country
 6. Update country name mapping in components
 7. Test with all chart types
 8. **Document data sources** - Add proper attribution in DataAttribution component
 9. **Test all links** - Verify every source link works and leads to valid data
+10. **Verify API responses** - Ensure new country data is properly returned from real APIs
 
 ### Adding New Years
 1. Add data for all existing countries
@@ -307,7 +327,8 @@ interface SpendingData {
 - `package.json` - Dependencies and scripts
 - `vite.config.ts` - Build configuration
 - `src/types/index.ts` - Type definitions
-- `src/data/mockData.ts` - Core data
+- `src/services/apiService.ts` - Real API service functions
+- `src/data/api.ts` - API abstraction layer (REAL API ONLY)
 - `.github/workflows/ci.yml` - Deployment pipeline
 
 ---

@@ -1,76 +1,46 @@
 import { Country, TaxData, SpendingData, HistoricalData } from '../types';
-import { 
-  fetchRealCountries, 
-  fetchRealTaxData, 
-  fetchRealSpendingData 
-} from '../services/apiService';
-import { mockCountries, mockTaxData, mockSpendingData, mockHistoricalData } from './mockData';
+import { fetchRealCountries, fetchRealTaxData, fetchRealSpendingData } from '../services/apiService';
 
-// Real API functions using actual data sources with fallback to mock data
 export const fetchCountries = async (): Promise<Country[]> => {
-  try {
-    console.log('Fetching real country data from OECD/World Bank...');
-    const countries = await fetchRealCountries();
-    console.log(`Successfully fetched ${countries.length} countries`);
-    return countries;
-  } catch (error) {
-    console.error('Error fetching countries:', error);
-    console.log('Falling back to mock data...');
-    return mockCountries;
-  }
+  console.log('Fetching real country data from OECD/World Bank...');
+  const countries = await fetchRealCountries();
+  console.log(`Successfully fetched ${countries.length} countries`);
+  return countries;
 };
 
 export const fetchTaxData = async (): Promise<TaxData[]> => {
-  try {
-    console.log('Fetching real tax data from OECD/IMF...');
-    const taxData = await fetchRealTaxData();
-    console.log(`Successfully fetched tax data for ${taxData.length} countries`);
-    return taxData;
-  } catch (error) {
-    console.error('Error fetching tax data:', error);
-    console.log('Falling back to mock data...');
-    return mockTaxData;
-  }
+  console.log('Fetching real tax data from OECD...');
+  const taxData = await fetchRealTaxData();
+  console.log(`Successfully fetched ${taxData.length} tax data records`);
+  return taxData;
 };
 
 export const fetchSpendingData = async (): Promise<SpendingData[]> => {
-  try {
-    console.log('Fetching real spending data from OECD/World Bank...');
-    const spendingData = await fetchRealSpendingData();
-    console.log(`Successfully fetched spending data for ${spendingData.length} countries`);
-    return spendingData;
-  } catch (error) {
-    console.error('Error fetching spending data:', error);
-    console.log('Falling back to mock data...');
-    return mockSpendingData;
-  }
+  console.log('Fetching real spending data from OECD...');
+  const spendingData = await fetchRealSpendingData();
+  console.log(`Successfully fetched ${spendingData.length} spending data records`);
+  return spendingData;
 };
 
 export const fetchHistoricalData = async (): Promise<HistoricalData[]> => {
-  try {
-    console.log('Fetching real historical data from multiple sources...');
-    const [taxData, spendingData] = await Promise.all([
-      fetchTaxData(),
-      fetchSpendingData(),
-    ]);
-    
-    const historicalData = taxData.map(tax => {
-      const spending = spendingData.find(s => s.countryCode === tax.countryCode && s.year === tax.year);
-      return {
-        countryCode: tax.countryCode,
-        year: tax.year,
-        taxData: tax,
-        spendingData: spending!,
-      };
-    });
+  console.log('Fetching real historical data from OECD/World Bank/IMF...');
+  const [taxData, spendingData] = await Promise.all([
+    fetchTaxData(),
+    fetchSpendingData(),
+  ]);
+  
+  const historicalData = taxData.map(tax => {
+    const spending = spendingData.find(s => s.countryCode === tax.countryCode && s.year === tax.year);
+    return {
+      countryCode: tax.countryCode,
+      year: tax.year,
+      taxData: tax,
+      spendingData: spending!,
+    };
+  });
 
-    console.log(`Successfully created historical data for ${historicalData.length} countries`);
-    return historicalData;
-  } catch (error) {
-    console.error('Error fetching historical data:', error);
-    console.log('Falling back to mock data...');
-    return mockHistoricalData;
-  }
+  console.log(`Successfully created historical data for ${historicalData.length} countries`);
+  return historicalData;
 };
 
 // Helper function to format currency
