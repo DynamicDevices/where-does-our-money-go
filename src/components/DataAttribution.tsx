@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ExternalLink, Info, AlertTriangle } from 'lucide-react';
-import { DataAttribution as DataAttributionType, DISCLAIMER } from '../data/dataSources';
+import { DataAttribution as DataAttributionType, DISCLAIMER, getAllDataSources, getDataSourcesForCategory } from '../data/dataSources';
 
 interface DataAttributionProps {
   categories?: string[];
@@ -14,8 +14,6 @@ const DataAttribution: React.FC<DataAttributionProps> = ({
   className = ''
 }) => {
   const [showDetails, setShowDetails] = useState(false);
-
-  const { getAllDataSources, getDataSourcesForCategory } = require('../data/dataSources');
   
   const dataSources = categories.length > 0 
     ? categories.map(cat => getDataSourcesForCategory(cat)).filter(Boolean)
@@ -38,7 +36,7 @@ const DataAttribution: React.FC<DataAttributionProps> = ({
 
       {showDetails && (
         <div className="space-y-4">
-          {dataSources.map((source: DataAttributionType) => (
+          {dataSources.filter((source): source is DataAttributionType => source !== null).map((source) => (
             <div key={source.category} className="border-l-4 border-primary-500 pl-4">
               <h4 className="font-semibold text-secondary-900 mb-2">{source.category}</h4>
               <p className="text-sm text-secondary-600 mb-3">{source.notes}</p>

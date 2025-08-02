@@ -102,6 +102,22 @@ interface SpendingData {
 - **Percentages must sum appropriately** (tax categories, spending categories)
 - **GDP percentages must be realistic** (typically 15-50% for tax, 20-60% for spending)
 
+### 🚨 **CRITICAL: Data Accuracy Requirements**
+- **All data must be factually correct** - This is an educational platform used by students and policymakers
+- **Source verification is mandatory** - All data must be traceable to official government sources
+- **Regular data validation** - Cross-reference with multiple authoritative sources
+- **Transparency in data sources** - All data must be properly attributed with clear citations
+- **Accuracy over completeness** - It's better to have incomplete but accurate data than complete but questionable data
+- **Expert review required** - All data updates must be reviewed by someone with domain expertise
+- **Version control for data** - Track all data changes with clear documentation of sources and methodology
+- **Error reporting system** - Users must be able to report data inaccuracies
+- **Disclaimer requirements** - Clear disclaimers about data limitations and sources
+- **No assumptions** - Never estimate or approximate data; use only verified official statistics
+- **All data sources must be referenced with working links** - Every data point must have a verifiable URL
+- **Links must be active and accessible** - All source links must be tested and confirmed to work
+- **No broken links allowed** - If a source link becomes unavailable, the data must be removed or updated
+- **Link validation required** - Regularly verify all source links are still active and accessible
+
 ### Performance Requirements
 - **Bundle size**: Keep under 500KB gzipped
 - **Load time**: Under 3 seconds on 3G
@@ -117,11 +133,15 @@ interface SpendingData {
 ## 🔄 **Update Procedures**
 
 ### Adding New Countries
-1. Add to `mockCountries` in `src/data/mockData.ts`
-2. Add corresponding tax data to `mockTaxData`
-3. Add corresponding spending data to `mockSpendingData`
-4. Update country name mapping in components
-5. Test with all chart types
+1. **VERIFY DATA ACCURACY FIRST** - Ensure all data comes from official government sources
+2. **VERIFY ALL SOURCE LINKS** - Test every URL to ensure it's active and accessible
+3. Add to `mockCountries` in `src/data/mockData.ts`
+4. Add corresponding tax data to `mockTaxData`
+5. Add corresponding spending data to `mockSpendingData`
+6. Update country name mapping in components
+7. Test with all chart types
+8. **Document data sources** - Add proper attribution in DataAttribution component
+9. **Test all links** - Verify every source link works and leads to valid data
 
 ### Adding New Years
 1. Add data for all existing countries
@@ -155,6 +175,11 @@ interface SpendingData {
 - [ ] No TypeScript errors
 - [ ] No ESLint warnings
 - [ ] All tests pass
+- [ ] **Data accuracy verified** - Cross-reference with official sources
+- [ ] **Data attribution complete** - All sources properly cited
+- [ ] **Data validation passed** - Percentages and totals are mathematically correct
+- [ ] **All source links tested** - Verify every link is active and accessible
+- [ ] **No broken links** - All URLs must work and lead to valid sources
 
 ### Critical Test Scenarios
 1. **Empty data**: Handle gracefully
@@ -218,6 +243,8 @@ interface SpendingData {
 - [ ] Review performance metrics
 - [ ] Check accessibility compliance
 - [ ] Update documentation
+- [ ] **Verify all source links** - Test every data source URL to ensure they're still active
+- [ ] **Update broken links** - Replace or remove data with broken source links
 
 ### Quarterly
 - [ ] Major dependency updates

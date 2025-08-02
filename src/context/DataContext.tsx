@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { Country, TaxData, SpendingData, HistoricalData } from '../types';
 import { fetchCountries, fetchTaxData, fetchSpendingData, fetchHistoricalData } from '../data/api';
+import { validateAllData } from '../utils/dataValidation';
 
 export interface DataContextType {
   countries: Country[];
@@ -46,6 +47,19 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         fetchHistoricalData(),
       ]);
 
+      // Validate data before setting it
+      const validation = validateAllData(countriesData, taxDataResult, spendingDataResult);
+      
+      if (!validation.isValid) {
+        console.error('Data validation failed:', validation.errors);
+        setError(`Data validation failed: ${validation.errors.join(', ')}`);
+        return;
+      }
+
+      if (validation.warnings.length > 0) {
+        console.warn('Data validation warnings:', validation.warnings);
+      }
+
       setCountries(countriesData);
       setTaxData(taxDataResult);
       setSpendingData(spendingDataResult);
@@ -58,7 +72,14 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   };
 
   useEffect(() => {
-    refreshData();
+    const loadData = async () => {
+      await refreshData();
+    };
+    
+    loadData().catch((err) => {
+      setError(err instanceof Error ? err.message : 'Failed to load data');
+      setLoading(false);
+    });
   }, []);
 
   const value: DataContextType = {

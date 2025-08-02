@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Globe, BookOpen, Users, Heart, ExternalLink } from 'lucide-react';
 import DataAttribution from '../components/DataAttribution';
 
@@ -140,29 +139,7 @@ const AboutPage: React.FC = () => {
           </div>
         </section>
 
-        {/* Call to Action */}
-        <section className="text-center">
-          <div className="card bg-primary-600 text-white">
-            <h2 className="text-2xl font-bold mb-4">Ready to Explore?</h2>
-            <p className="text-primary-100 mb-6">
-              Start comparing countries and understanding how your tax money is spent.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/compare"
-                className="btn bg-white text-primary-600 hover:bg-primary-50"
-              >
-                Compare Countries
-              </Link>
-              <Link
-                to="/historical"
-                className="btn bg-primary-700 text-white hover:bg-primary-800"
-              >
-                View Historical Data
-              </Link>
-            </div>
-          </div>
-        </section>
+
 
         {/* Contact */}
         <section className="text-center mt-12">

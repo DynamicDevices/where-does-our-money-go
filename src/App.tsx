@@ -1,6 +1,5 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
@@ -8,20 +7,11 @@ import CountryComparisonPage from './pages/CountryComparisonPage';
 import HistoricalDataPage from './pages/HistoricalDataPage';
 import AboutPage from './pages/AboutPage';
 import { DataProvider } from './context/DataContext';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 1,
-      refetchOnWindowFocus: false,
-      staleTime: 5 * 60 * 1000, // 5 minutes
-    },
-  },
-});
+import ErrorBoundary from './components/ErrorBoundary';
 
 const App: React.FC = () => {
   return (
-    <QueryClientProvider client={queryClient}>
+    <ErrorBoundary>
       <DataProvider>
         <div className="min-h-screen bg-secondary-50 flex flex-col">
           <Header />
@@ -36,7 +26,7 @@ const App: React.FC = () => {
           <Footer />
         </div>
       </DataProvider>
-    </QueryClientProvider>
+    </ErrorBoundary>
   );
 };
 

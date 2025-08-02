@@ -16,6 +16,7 @@ import {
 import { DollarSign, Shield } from 'lucide-react';
 import { formatPercentage } from '../data/api';
 import DataAttribution from '../components/DataAttribution';
+import { TaxData, SpendingData } from '../types';
 
 ChartJS.register(
   CategoryScale,
@@ -113,41 +114,177 @@ const CountryComparisonPage: React.FC = () => {
     ],
   };
 
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'top' as const,
-      },
-      title: {
-        display: true,
-        text: activeTab === 'tax' ? 'Tax Revenue by Category (%)' : 'Government Spending by Category (%)',
-      },
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
+  const getChartOptions = () => {
+    if (chartType === 'pie') {
+      return {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top' as const,
+          },
+          title: {
+            display: true,
+            text: activeTab === 'tax' ? 'Tax Revenue by Category (%)' : 'Government Spending by Category (%)',
+          },
+          tooltip: {
+            callbacks: {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              label: (context: any) => {
+                return `${context.label}: ${context.parsed}%`;
+              }
+            }
+          }
+        }
+      };
+    }
+
+    // Calculate appropriate y-axis range for better visualization
+    const data = activeTab === 'tax' ? filteredTaxData : filteredSpendingData;
+    const allValues: number[] = [];
+    
+    if (activeTab === 'tax') {
+      (data as TaxData[]).forEach((item) => {
+        allValues.push(
+          item.personalIncomeTax,
+          item.corporateTax,
+          item.vatSalesTax,
+          item.socialSecurity,
+          item.otherTaxes
+        );
+      });
+    } else {
+      (data as SpendingData[]).forEach((item) => {
+        allValues.push(
+          item.health,
+          item.education,
+          item.defense,
+          item.socialProtection
+        );
+      });
+    }
+
+    const minValue = Math.min(...allValues);
+    const maxValue = Math.max(...allValues);
+    const range = maxValue - minValue;
+    const padding = range * 0.1; // 10% padding
+
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top' as const,
+        },
         title: {
           display: true,
-          text: 'Percentage of GDP',
+          text: activeTab === 'tax' ? 'Tax Revenue by Category (%)' : 'Government Spending by Category (%)',
         },
+        tooltip: {
+          callbacks: {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            label: (context: any) => {
+              return `${context.dataset.label}: ${context.parsed.y}%`;
+            }
+          }
+        }
       },
-    },
+      scales: {
+        y: {
+          beginAtZero: false,
+          min: Math.max(0, minValue - padding),
+          max: maxValue + padding,
+          title: {
+            display: true,
+            text: 'Percentage of GDP',
+          },
+        },
+      }
+    };
   };
 
   const renderChart = () => {
+    const options = getChartOptions();
+    
+    if (chartType === 'pie') {
+      // For pie charts, we need to restructure the data
+      const pieData = activeTab === 'tax' ? 
+        createPieChartData(filteredTaxData, 'tax') : 
+        createPieChartData(filteredSpendingData, 'spending');
+      
+      return <Pie data={pieData} options={options} />;
+    }
+    
     const data = activeTab === 'tax' ? taxChartData : spendingChartData;
     
     switch (chartType) {
       case 'bar':
-        return <Bar data={data} options={chartOptions} />;
+        return <Bar data={data} options={options} />;
       case 'line':
-        return <Line data={data} options={chartOptions} />;
-      case 'pie':
-        return <Pie data={data} options={chartOptions} />;
+        return <Line data={data} options={options} />;
       default:
-        return <Bar data={data} options={chartOptions} />;
+        return <Bar data={data} options={options} />;
+    }
+  };
+
+  const createPieChartData = (data: TaxData[] | SpendingData[], type: 'tax' | 'spending') => {
+    if (data.length === 0) return { labels: [], datasets: [] };
+    
+    // For pie charts, we'll show the first country's data as segments
+    const firstCountryData = data[0];
+    
+    if (type === 'tax') {
+      const taxData = firstCountryData as TaxData;
+      const labels = ['Personal Income Tax', 'Corporate Tax', 'VAT/Sales Tax', 'Social Security', 'Other Taxes'];
+      const values = [
+        taxData.personalIncomeTax,
+        taxData.corporateTax,
+        taxData.vatSalesTax,
+        taxData.socialSecurity,
+        taxData.otherTaxes
+      ];
+      const colors = [
+        'rgba(59, 130, 246, 0.8)',
+        'rgba(16, 185, 129, 0.8)',
+        'rgba(245, 158, 11, 0.8)',
+        'rgba(239, 68, 68, 0.8)',
+        'rgba(139, 92, 246, 0.8)'
+      ];
+      
+      return {
+        labels,
+        datasets: [{
+          data: values,
+          backgroundColor: colors,
+          borderColor: colors.map(color => color.replace('0.8', '1')),
+          borderWidth: 2,
+        }]
+      };
+    } else {
+      const spendingData = firstCountryData as SpendingData;
+      const labels = ['Health', 'Education', 'Defense', 'Social Protection'];
+      const values = [
+        spendingData.health,
+        spendingData.education,
+        spendingData.defense,
+        spendingData.socialProtection
+      ];
+      const colors = [
+        'rgba(239, 68, 68, 0.8)',
+        'rgba(59, 130, 246, 0.8)',
+        'rgba(107, 114, 128, 0.8)',
+        'rgba(16, 185, 129, 0.8)'
+      ];
+      
+      return {
+        labels,
+        datasets: [{
+          data: values,
+          backgroundColor: colors,
+          borderColor: colors.map(color => color.replace('0.8', '1')),
+          borderWidth: 2,
+        }]
+      };
     }
   };
 

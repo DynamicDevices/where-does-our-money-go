@@ -41,15 +41,15 @@ const HomePage: React.FC = () => {
     },
     {
       icon: Users,
-      title: 'Population Data',
-      description: 'View population and GDP data for all countries in the comparison tool.',
+      title: 'Population Insights',
+      description: 'Explore population and GDP data across different countries.',
       href: '/compare',
       color: 'bg-warning-500',
     },
     {
       icon: DollarSign,
-      title: 'Tax Breakdown',
-      description: 'Compare detailed tax breakdowns including income, corporate, and sales taxes.',
+      title: 'Tax Analysis',
+      description: 'Detailed breakdowns of income, corporate, and sales taxes.',
       href: '/compare',
       color: 'bg-danger-500',
     },
@@ -88,13 +88,13 @@ const HomePage: React.FC = () => {
                 to="/compare"
                 className="btn-primary text-lg px-8 py-3"
               >
-                Start Comparing
+                Explore Data
               </Link>
               <Link
                 to="/about"
                 className="btn-outline text-lg px-8 py-3 bg-white text-primary-600 hover:bg-primary-50"
               >
-                Learn More
+                About This Project
               </Link>
             </div>
           </div>
@@ -220,23 +220,7 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-16 bg-primary-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Ready to Explore?
-          </h2>
-          <p className="text-xl mb-8 text-primary-100">
-            Start comparing countries and understanding how your tax money is spent.
-          </p>
-          <Link
-            to="/compare"
-            className="btn bg-white text-primary-600 hover:bg-primary-50 text-lg px-8 py-3"
-          >
-            Start Comparing Countries
-          </Link>
-        </div>
-      </section>
+
 
       {/* Data Attribution */}
       <section className="py-16 bg-secondary-50">
