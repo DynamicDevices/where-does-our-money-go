@@ -35,12 +35,28 @@ const CountryComparisonPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'tax' | 'spending'>('tax');
   const [chartType, setChartType] = useState<'bar' | 'line' | 'pie'>('bar');
 
+  // Debug logging
+  console.log('CountryComparisonPage Debug:', {
+    countries: countries.length,
+    taxData: taxData.length,
+    spendingData: spendingData.length,
+    selectedCountries,
+    loading
+  });
+
   const filteredTaxData = taxData.filter(data => 
     selectedCountries.includes(data.countryCode) && data.year === 2022
   );
   const filteredSpendingData = spendingData.filter(data => 
     selectedCountries.includes(data.countryCode) && data.year === 2022
   );
+
+  // Debug filtered data
+  console.log('Filtered Data:', {
+    filteredTaxData: filteredTaxData.length,
+    filteredSpendingData: filteredSpendingData.length,
+    activeTab
+  });
 
   const getCountryName = (code: string) => {
     return countries.find(c => c.code === code)?.name || code;
@@ -325,10 +341,19 @@ const CountryComparisonPage: React.FC = () => {
                       type="checkbox"
                       checked={selectedCountries.includes(country.code)}
                       onChange={(e) => {
+                        console.log('Country selection changed:', {
+                          country: country.code,
+                          checked: e.target.checked,
+                          currentSelected: selectedCountries
+                        });
                         if (e.target.checked) {
-                          setSelectedCountries([...selectedCountries, country.code]);
+                          const newSelected = [...selectedCountries, country.code];
+                          console.log('Adding country, new selection:', newSelected);
+                          setSelectedCountries(newSelected);
                         } else {
-                          setSelectedCountries(selectedCountries.filter(c => c !== country.code));
+                          const newSelected = selectedCountries.filter(c => c !== country.code);
+                          console.log('Removing country, new selection:', newSelected);
+                          setSelectedCountries(newSelected);
                         }
                       }}
                       className="rounded border-secondary-300 text-primary-600 focus:ring-primary-500"
@@ -391,6 +416,15 @@ const CountryComparisonPage: React.FC = () => {
         <div className="card">
           <div className="chart-container">
             {renderChart()}
+          </div>
+          {/* Debug info */}
+          <div className="mt-4 p-4 bg-gray-100 rounded text-sm">
+            <p>Debug Info:</p>
+            <p>Selected Countries: {selectedCountries.join(', ')}</p>
+            <p>Filtered Tax Data: {filteredTaxData.length} items</p>
+            <p>Filtered Spending Data: {filteredSpendingData.length} items</p>
+            <p>Active Tab: {activeTab}</p>
+            <p>Chart Type: {chartType}</p>
           </div>
         </div>
 
