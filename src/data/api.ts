@@ -1,110 +1,70 @@
 import { Country, TaxData, SpendingData, HistoricalData } from '../types';
-import { mockCountries, mockTaxData, mockSpendingData, mockHistoricalData } from './mockData';
+import { 
+  fetchRealCountries, 
+  fetchRealTaxData, 
+  fetchRealSpendingData 
+} from '../services/apiService';
 
-// API base URLs (for future use)
-// const OECD_BASE_URL = 'https://stats.oecd.org/api/v1';
-// const WORLD_BANK_BASE_URL = 'https://api.worldbank.org/v2';
-
-// Real API functions (commented out for now, using mock data)
+// Real API functions using actual data sources
 export const fetchCountries = async (): Promise<Country[]> => {
   try {
-    // In production, this would fetch from OECD API
-    // const response = await fetch(`${OECD_BASE_URL}/countries`);
-    // const data = await response.json();
-    // return data.map((country: any) => ({
-    //   code: country.code,
-    //   name: country.name,
-    //   population: country.population,
-    //   gdp: country.gdp,
-    //   currency: country.currency,
-    // }));
-
-    // Using mock data for development
-    return mockCountries;
+    console.log('Fetching real country data from OECD/World Bank...');
+    const countries = await fetchRealCountries();
+    console.log(`Successfully fetched ${countries.length} countries`);
+    return countries;
   } catch (error) {
     console.error('Error fetching countries:', error);
-    return mockCountries; // Fallback to mock data
+    throw new Error('Failed to fetch country data from external APIs');
   }
 };
 
 export const fetchTaxData = async (): Promise<TaxData[]> => {
   try {
-    // In production, this would fetch from OECD Revenue Statistics
-    // const response = await fetch(`${OECD_BASE_URL}/revenue-statistics`);
-    // const data = await response.json();
-    // return data.map((item: any) => ({
-    //   countryCode: item.countryCode,
-    //   year: item.year,
-    //   totalTaxRevenue: item.totalTaxRevenue,
-    //   taxRevenueAsGDP: item.taxRevenueAsGDP,
-    //   personalIncomeTax: item.personalIncomeTax,
-    //   corporateTax: item.corporateTax,
-    //   vatSalesTax: item.vatSalesTax,
-    //   socialSecurity: item.socialSecurity,
-    //   otherTaxes: item.otherTaxes,
-    // }));
-
-    // Using mock data for development
-    return mockTaxData;
+    console.log('Fetching real tax data from OECD/IMF...');
+    const taxData = await fetchRealTaxData();
+    console.log(`Successfully fetched tax data for ${taxData.length} countries`);
+    return taxData;
   } catch (error) {
     console.error('Error fetching tax data:', error);
-    return mockTaxData; // Fallback to mock data
+    throw new Error('Failed to fetch tax data from external APIs');
   }
 };
 
 export const fetchSpendingData = async (): Promise<SpendingData[]> => {
   try {
-    // In production, this would fetch from OECD Government at a Glance
-    // const response = await fetch(`${OECD_BASE_URL}/government-spending`);
-    // const data = await response.json();
-    // return data.map((item: any) => ({
-    //   countryCode: item.countryCode,
-    //   year: item.year,
-    //   totalSpending: item.totalSpending,
-    //   spendingAsGDP: item.spendingAsGDP,
-    //   health: item.health,
-    //   education: item.education,
-    //   defense: item.defense,
-    //   socialProtection: item.socialProtection,
-    //   generalPublicServices: item.generalPublicServices,
-    //   economicAffairs: item.economicAffairs,
-    //   environmentalProtection: item.environmentalProtection,
-    //   housing: item.housing,
-    //   recreation: item.recreation,
-    //   publicOrder: item.publicOrder,
-    // }));
-
-    // Using mock data for development
-    return mockSpendingData;
+    console.log('Fetching real spending data from OECD/World Bank...');
+    const spendingData = await fetchRealSpendingData();
+    console.log(`Successfully fetched spending data for ${spendingData.length} countries`);
+    return spendingData;
   } catch (error) {
     console.error('Error fetching spending data:', error);
-    return mockSpendingData; // Fallback to mock data
+    throw new Error('Failed to fetch spending data from external APIs');
   }
 };
 
 export const fetchHistoricalData = async (): Promise<HistoricalData[]> => {
   try {
-    // In production, this would fetch historical data from multiple sources
-    // const [taxData, spendingData] = await Promise.all([
-    //   fetchTaxData(),
-    //   fetchSpendingData(),
-    // ]);
-    // 
-    // return taxData.map(tax => {
-    //   const spending = spendingData.find(s => s.countryCode === tax.countryCode && s.year === tax.year);
-    //   return {
-    //     countryCode: tax.countryCode,
-    //     year: tax.year,
-    //     taxData: tax,
-    //     spendingData: spending!,
-    //   };
-    // });
+    console.log('Fetching real historical data from multiple sources...');
+    const [taxData, spendingData] = await Promise.all([
+      fetchTaxData(),
+      fetchSpendingData(),
+    ]);
+    
+    const historicalData = taxData.map(tax => {
+      const spending = spendingData.find(s => s.countryCode === tax.countryCode && s.year === tax.year);
+      return {
+        countryCode: tax.countryCode,
+        year: tax.year,
+        taxData: tax,
+        spendingData: spending!,
+      };
+    });
 
-    // Using mock data for development
-    return mockHistoricalData;
+    console.log(`Successfully created historical data for ${historicalData.length} countries`);
+    return historicalData;
   } catch (error) {
     console.error('Error fetching historical data:', error);
-    return mockHistoricalData; // Fallback to mock data
+    throw new Error('Failed to fetch historical data from external APIs');
   }
 };
 

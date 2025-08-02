@@ -4,6 +4,7 @@ import { useData } from '../hooks/useData';
 import { Globe, BarChart3, TrendingUp, Users, DollarSign, Shield, BookOpen } from 'lucide-react';
 import { formatNumber, formatPercentage } from '../data/api';
 import DataAttribution from '../components/DataAttribution';
+import LoadingState from '../components/LoadingState';
 
 const HomePage: React.FC = () => {
   const { countries, taxData, spendingData, loading } = useData();
@@ -63,11 +64,7 @@ const HomePage: React.FC = () => {
   ];
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="loading-spinner"></div>
-      </div>
-    );
+    return <LoadingState message="Loading real country and economic data from international sources..." />;
   }
 
   return (
