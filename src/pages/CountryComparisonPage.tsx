@@ -15,6 +15,7 @@ import {
 } from 'chart.js';
 import { DollarSign, Shield } from 'lucide-react';
 import { formatPercentage } from '../data/api';
+import DataAttribution from '../components/DataAttribution';
 
 ChartJS.register(
   CategoryScale,
@@ -359,6 +360,14 @@ const CountryComparisonPage: React.FC = () => {
             </table>
           </div>
         </div>
+      </div>
+
+      {/* Data Attribution */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <DataAttribution 
+          categories={activeTab === 'tax' ? ['taxRevenue'] : ['governmentSpending']}
+          showDisclaimer={true}
+        />
       </div>
     </div>
   );

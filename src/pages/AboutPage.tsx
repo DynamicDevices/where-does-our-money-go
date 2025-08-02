@@ -1,28 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Globe, BookOpen, Database, Users, Heart, ExternalLink } from 'lucide-react';
+import { Globe, BookOpen, Users, Heart, ExternalLink } from 'lucide-react';
+import DataAttribution from '../components/DataAttribution';
 
 const AboutPage: React.FC = () => {
-  const dataSources = [
-    {
-      name: 'OECD Revenue Statistics',
-      description: 'Comprehensive data on tax revenues across OECD countries',
-      url: 'https://stats.oecd.org/',
-      icon: Database,
-    },
-    {
-      name: 'World Bank Data',
-      description: 'Global development indicators and economic data',
-      url: 'https://data.worldbank.org/',
-      icon: Database,
-    },
-    {
-      name: 'IMF Government Finance Statistics',
-      description: 'International standards for government finance data',
-      url: 'https://www.imf.org/en/Data',
-      icon: Database,
-    },
-  ];
 
   const educationalContent = [
     {
@@ -118,35 +99,17 @@ const AboutPage: React.FC = () => {
         </section>
 
         {/* Data Sources */}
-        <section className="card mb-12">
-          <h2 className="text-2xl font-bold text-secondary-900 mb-6">Data Sources</h2>
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold text-secondary-900 mb-6">Data Sources & Attribution</h2>
           <p className="text-secondary-600 mb-6">
             We use data from reputable international organizations to ensure accuracy and reliability. 
             All data is regularly updated and follows international standards for government finance statistics.
+            Click "Show Details" below to see comprehensive information about our data sources.
           </p>
-          <div className="space-y-4">
-            {dataSources.map((source) => {
-              const Icon = source.icon;
-              return (
-                <div key={source.name} className="flex items-start space-x-4 p-4 bg-secondary-50 rounded-lg">
-                  <Icon className="w-6 h-6 text-primary-600 mt-1" />
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-secondary-900 mb-1">{source.name}</h3>
-                    <p className="text-secondary-600 text-sm mb-2">{source.description}</p>
-                    <a
-                      href={source.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary-600 hover:text-primary-700 text-sm flex items-center"
-                    >
-                      Visit Source
-                      <ExternalLink className="w-4 h-4 ml-1" />
-                    </a>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <DataAttribution 
+            categories={[]}
+            showDisclaimer={true}
+          />
         </section>
 
         {/* Educational Content */}

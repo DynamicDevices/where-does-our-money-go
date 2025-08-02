@@ -3,6 +3,7 @@ import { useData } from '../hooks/useData';
 import { Line } from 'react-chartjs-2';
 import { DollarSign, Shield } from 'lucide-react';
 import { formatPercentage } from '../data/api';
+import DataAttribution from '../components/DataAttribution';
 
 const HistoricalDataPage: React.FC = () => {
   const { historicalData, selectedCountries, setSelectedCountries, loading } = useData();
@@ -315,6 +316,14 @@ const HistoricalDataPage: React.FC = () => {
             </table>
           </div>
         </div>
+      </div>
+
+      {/* Data Attribution */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <DataAttribution 
+          categories={['historicalData', 'taxRevenue', 'governmentSpending']}
+          showDisclaimer={true}
+        />
       </div>
     </div>
   );

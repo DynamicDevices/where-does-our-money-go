@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useData } from '../hooks/useData';
 import { Globe, BarChart3, TrendingUp, Users, DollarSign, Shield, BookOpen } from 'lucide-react';
 import { formatNumber, formatPercentage } from '../data/api';
+import DataAttribution from '../components/DataAttribution';
 
 const HomePage: React.FC = () => {
   const { countries, taxData, spendingData, loading } = useData();
@@ -213,6 +214,16 @@ const HomePage: React.FC = () => {
           >
             Start Comparing Countries
           </Link>
+        </div>
+      </section>
+
+      {/* Data Attribution */}
+      <section className="py-16 bg-secondary-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <DataAttribution 
+            categories={['population', 'gdp', 'taxRevenue', 'governmentSpending']}
+            showDisclaimer={true}
+          />
         </div>
       </section>
     </div>
