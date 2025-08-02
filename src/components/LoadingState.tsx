@@ -17,7 +17,7 @@ const LoadingState: React.FC = () => {
   }
 
   if (error) {
-    const isCorsError = error.includes('CORS') || error.includes('Unable to fetch');
+    const isCorsError = error.includes('CORS') || error.includes('Unable to fetch') || error.includes('browser security restrictions');
     
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">

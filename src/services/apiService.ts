@@ -5,7 +5,6 @@ const API_CONFIG = {
   OECD_BASE_URL: 'https://stats.oecd.org/api/v1',
   WORLD_BANK_BASE_URL: 'https://api.worldbank.org/v2',
   IMF_BASE_URL: 'https://www.imf.org/external/datamapper/api/v1',
-  CORS_PROXY: 'https://cors-anywhere.herokuapp.com/',
   TIMEOUT: 10000, // 10 seconds
 };
 
@@ -95,10 +94,7 @@ async function fetchApi<T>(url: string, options: { signal?: AbortSignal; headers
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.TIMEOUT);
 
-    // Use CORS proxy for OECD requests
-    const finalUrl = url.includes('stats.oecd.org') ? `${API_CONFIG.CORS_PROXY}${url}` : url;
-
-    const response = await fetch(finalUrl, {
+    const response = await fetch(url, {
       ...options,
       signal: controller.signal,
       headers: {

@@ -25,7 +25,8 @@ class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      const isCorsError = this.state.error?.message?.includes('CORS');
+      const isCorsError = this.state.error?.message?.includes('CORS') || 
+                         this.state.error?.message?.includes('browser security restrictions');
       
       return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">

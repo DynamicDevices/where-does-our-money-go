@@ -10,8 +10,8 @@ export const fetchCountries = async (): Promise<Country[]> => {
   } catch (error) {
     console.error('Error fetching countries:', error);
     throw new Error(
-      'Unable to fetch country data due to CORS restrictions. ' +
-      'This is a browser security limitation when accessing external APIs. ' +
+      'Unable to fetch country data due to browser security restrictions. ' +
+      'This is a common limitation when accessing external APIs from web browsers. ' +
       'Please visit the OECD website directly for the most current data: ' +
       'https://stats.oecd.org/'
     );
@@ -27,8 +27,8 @@ export const fetchTaxData = async (): Promise<TaxData[]> => {
   } catch (error) {
     console.error('Error fetching tax data:', error);
     throw new Error(
-      'Unable to fetch tax data due to CORS restrictions. ' +
-      'This is a browser security limitation when accessing external APIs. ' +
+      'Unable to fetch tax data due to browser security restrictions. ' +
+      'This is a common limitation when accessing external APIs from web browsers. ' +
       'Please visit the OECD Revenue Statistics directly: ' +
       'https://stats.oecd.org/index.aspx?DataSetCode=REV'
     );
@@ -44,8 +44,8 @@ export const fetchSpendingData = async (): Promise<SpendingData[]> => {
   } catch (error) {
     console.error('Error fetching spending data:', error);
     throw new Error(
-      'Unable to fetch spending data due to CORS restrictions. ' +
-      'This is a browser security limitation when accessing external APIs. ' +
+      'Unable to fetch spending data due to browser security restrictions. ' +
+      'This is a common limitation when accessing external APIs from web browsers. ' +
       'Please visit the OECD Government Spending directly: ' +
       'https://stats.oecd.org/index.aspx?DataSetCode=GOV'
     );
@@ -75,8 +75,8 @@ export const fetchHistoricalData = async (): Promise<HistoricalData[]> => {
   } catch (error) {
     console.error('Error fetching historical data:', error);
     throw new Error(
-      'Unable to fetch historical data due to CORS restrictions. ' +
-      'This is a browser security limitation when accessing external APIs. ' +
+      'Unable to fetch historical data due to browser security restrictions. ' +
+      'This is a common limitation when accessing external APIs from web browsers. ' +
       'Please visit the OECD website directly for the most current data: ' +
       'https://stats.oecd.org/'
     );
