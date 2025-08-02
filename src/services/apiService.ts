@@ -32,8 +32,63 @@ interface ApiResponse<T> {
   error?: string;
 }
 
+// OECD API response interfaces
+interface OECDTaxItem {
+  countryCode: string;
+  year: string;
+  totalTaxRevenue: string;
+  taxRevenueAsGDP: string;
+  personalIncomeTax: string;
+  corporateTax: string;
+  vatSalesTax: string;
+  socialSecurity: string;
+  otherTaxes: string;
+}
+
+interface OECDSpendingItem {
+  countryCode: string;
+  year: string;
+  totalSpending: string;
+  spendingAsGDP: string;
+  health: string;
+  education: string;
+  defense: string;
+  socialProtection: string;
+  generalPublicServices: string;
+  economicAffairs: string;
+  environmentalProtection: string;
+  housing: string;
+  recreation: string;
+  publicOrder: string;
+}
+
+interface OECDCountryItem {
+  code: string;
+  name: string;
+  population: string;
+  gdp: string;
+  currency?: string;
+}
+
+// World Bank API response interfaces
+interface WorldBankDataItem {
+  value: string | null;
+  date: string;
+  [key: string]: unknown;
+}
+
+interface WorldBankResponse {
+  [index: number]: WorldBankDataItem[];
+}
+
+// IMF API response interface
+interface IMFResponse {
+  value: string;
+  [key: string]: unknown;
+}
+
 // Generic API fetch function with error handling
-async function fetchApi<T>(url: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
+async function fetchApi<T>(url: string, options: { signal?: AbortSignal; headers?: Record<string, string> } = {}): Promise<ApiResponse<T>> {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.TIMEOUT);
@@ -68,13 +123,13 @@ async function fetchApi<T>(url: string, options: RequestInit = {}): Promise<ApiR
 // OECD API Functions
 export const fetchOECDTaxData = async (): Promise<TaxData[]> => {
   const url = `${API_CONFIG.OECD_BASE_URL}${OECD_ENDPOINTS.REVENUE_STATISTICS}`;
-  const response = await fetchApi<any[]>(url);
+  const response = await fetchApi<OECDTaxItem[]>(url);
   
   if (!response.success) {
     throw new Error(`Failed to fetch OECD tax data: ${response.error}`);
   }
 
-  return response.data.map((item: any) => ({
+  return response.data.map((item: OECDTaxItem) => ({
     countryCode: item.countryCode,
     year: parseInt(item.year),
     totalTaxRevenue: parseFloat(item.totalTaxRevenue) || 0,
@@ -89,13 +144,13 @@ export const fetchOECDTaxData = async (): Promise<TaxData[]> => {
 
 export const fetchOECDSpendingData = async (): Promise<SpendingData[]> => {
   const url = `${API_CONFIG.OECD_BASE_URL}${OECD_ENDPOINTS.GOVERNMENT_SPENDING}`;
-  const response = await fetchApi<any[]>(url);
+  const response = await fetchApi<OECDSpendingItem[]>(url);
   
   if (!response.success) {
     throw new Error(`Failed to fetch OECD spending data: ${response.error}`);
   }
 
-  return response.data.map((item: any) => ({
+  return response.data.map((item: OECDSpendingItem) => ({
     countryCode: item.countryCode,
     year: parseInt(item.year),
     totalSpending: parseFloat(item.totalSpending) || 0,
@@ -115,13 +170,13 @@ export const fetchOECDSpendingData = async (): Promise<SpendingData[]> => {
 
 export const fetchOECDCountries = async (): Promise<Country[]> => {
   const url = `${API_CONFIG.OECD_BASE_URL}${OECD_ENDPOINTS.COUNTRIES}`;
-  const response = await fetchApi<any[]>(url);
+  const response = await fetchApi<OECDCountryItem[]>(url);
   
   if (!response.success) {
     throw new Error(`Failed to fetch OECD countries: ${response.error}`);
   }
 
-  return response.data.map((item: any) => ({
+  return response.data.map((item: OECDCountryItem) => ({
     code: item.code,
     name: item.name,
     population: parseInt(item.population) || 0,
@@ -133,32 +188,32 @@ export const fetchOECDCountries = async (): Promise<Country[]> => {
 // World Bank API Functions
 export const fetchWorldBankGDP = async (countryCode: string, year: number): Promise<number> => {
   const url = `${API_CONFIG.WORLD_BANK_BASE_URL}${WORLD_BANK_ENDPOINTS.GDP}/${countryCode}?format=json&date=${year}`;
-  const response = await fetchApi<any[]>(url);
+  const response = await fetchApi<WorldBankResponse>(url);
   
   if (!response.success || !response.data || response.data.length === 0) {
     return 0;
   }
 
-  const gdpData = response.data[1]?.find((item: any) => item.value !== null);
+  const gdpData = response.data[1]?.find((item: WorldBankDataItem) => item.value !== null);
   return gdpData ? parseFloat(gdpData.value) : 0;
 };
 
 export const fetchWorldBankPopulation = async (countryCode: string, year: number): Promise<number> => {
   const url = `${API_CONFIG.WORLD_BANK_BASE_URL}${WORLD_BANK_ENDPOINTS.POPULATION}/${countryCode}?format=json&date=${year}`;
-  const response = await fetchApi<any[]>(url);
+  const response = await fetchApi<WorldBankResponse>(url);
   
   if (!response.success || !response.data || response.data.length === 0) {
     return 0;
   }
 
-  const populationData = response.data[1]?.find((item: any) => item.value !== null);
+  const populationData = response.data[1]?.find((item: WorldBankDataItem) => item.value !== null);
   return populationData ? parseInt(populationData.value) : 0;
 };
 
 // IMF API Functions
 export const fetchIMFTaxRevenue = async (countryCode: string, year: number): Promise<number> => {
   const url = `${API_CONFIG.IMF_BASE_URL}/weo/NGDP_RPCH/${countryCode}?year=${year}`;
-  const response = await fetchApi<any>(url);
+  const response = await fetchApi<IMFResponse>(url);
   
   if (!response.success || !response.data) {
     return 0;
