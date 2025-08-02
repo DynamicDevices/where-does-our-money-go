@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useData } from '../hooks/useData';
 import { Globe, BarChart3, TrendingUp, Users, DollarSign, Shield, BookOpen } from 'lucide-react';
@@ -7,6 +7,7 @@ import DataAttribution from '../components/DataAttribution';
 
 const HomePage: React.FC = () => {
   const { countries, taxData, spendingData, loading } = useData();
+  const [showCountriesTooltip, setShowCountriesTooltip] = useState(false);
 
   const getLatestData = () => {
     const latestYear = Math.max(...taxData.map(t => t.year));
@@ -105,7 +106,11 @@ const HomePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-12">Key Statistics</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center">
+            <div 
+              className="text-center relative cursor-help"
+              onMouseEnter={() => setShowCountriesTooltip(true)}
+              onMouseLeave={() => setShowCountriesTooltip(false)}
+            >
               <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Globe className="w-8 h-8 text-primary-600" />
               </div>
@@ -113,6 +118,22 @@ const HomePage: React.FC = () => {
                 {countries.length}
               </h3>
               <p className="text-secondary-600">Countries Analyzed</p>
+              
+              {/* Tooltip */}
+              {showCountriesTooltip && (
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-4 py-2 bg-secondary-900 text-white text-sm rounded-lg shadow-lg z-50 max-w-xs">
+                  <div className="text-center mb-2 font-semibold">Countries Included:</div>
+                  <div className="text-xs space-y-1 max-h-32 overflow-y-auto">
+                    {countries.map((country, index) => (
+                      <div key={country.code} className="text-primary-100">
+                        {country.name}
+                        {index < countries.length - 1 && ','}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-secondary-900"></div>
+                </div>
+              )}
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-4">
