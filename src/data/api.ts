@@ -3,44 +3,84 @@ import { fetchRealCountries, fetchRealTaxData, fetchRealSpendingData } from '../
 
 export const fetchCountries = async (): Promise<Country[]> => {
   console.log('Fetching real country data from OECD/World Bank...');
-  const countries = await fetchRealCountries();
-  console.log(`Successfully fetched ${countries.length} countries`);
-  return countries;
+  try {
+    const countries = await fetchRealCountries();
+    console.log(`Successfully fetched ${countries.length} countries`);
+    return countries;
+  } catch (error) {
+    console.error('Error fetching countries:', error);
+    throw new Error(
+      'Unable to fetch country data due to CORS restrictions. ' +
+      'This is a browser security limitation when accessing external APIs. ' +
+      'Please visit the OECD website directly for the most current data: ' +
+      'https://stats.oecd.org/'
+    );
+  }
 };
 
 export const fetchTaxData = async (): Promise<TaxData[]> => {
   console.log('Fetching real tax data from OECD...');
-  const taxData = await fetchRealTaxData();
-  console.log(`Successfully fetched ${taxData.length} tax data records`);
-  return taxData;
+  try {
+    const taxData = await fetchRealTaxData();
+    console.log(`Successfully fetched ${taxData.length} tax data records`);
+    return taxData;
+  } catch (error) {
+    console.error('Error fetching tax data:', error);
+    throw new Error(
+      'Unable to fetch tax data due to CORS restrictions. ' +
+      'This is a browser security limitation when accessing external APIs. ' +
+      'Please visit the OECD Revenue Statistics directly: ' +
+      'https://stats.oecd.org/index.aspx?DataSetCode=REV'
+    );
+  }
 };
 
 export const fetchSpendingData = async (): Promise<SpendingData[]> => {
   console.log('Fetching real spending data from OECD...');
-  const spendingData = await fetchRealSpendingData();
-  console.log(`Successfully fetched ${spendingData.length} spending data records`);
-  return spendingData;
+  try {
+    const spendingData = await fetchRealSpendingData();
+    console.log(`Successfully fetched ${spendingData.length} spending data records`);
+    return spendingData;
+  } catch (error) {
+    console.error('Error fetching spending data:', error);
+    throw new Error(
+      'Unable to fetch spending data due to CORS restrictions. ' +
+      'This is a browser security limitation when accessing external APIs. ' +
+      'Please visit the OECD Government Spending directly: ' +
+      'https://stats.oecd.org/index.aspx?DataSetCode=GOV'
+    );
+  }
 };
 
 export const fetchHistoricalData = async (): Promise<HistoricalData[]> => {
   console.log('Fetching real historical data from OECD/World Bank/IMF...');
-  const [taxData, spendingData] = await Promise.all([
-    fetchTaxData(),
-    fetchSpendingData(),
-  ]);
-  
-  const historicalData = taxData.map(tax => {
-    const spending = spendingData.find(s => s.countryCode === tax.countryCode && s.year === tax.year);
-    return {
-      countryCode: tax.countryCode,
-      year: tax.year,
-      taxData: tax,
-      spendingData: spending!,
-    };
-  });
+  try {
+    const [taxData, spendingData] = await Promise.all([
+      fetchTaxData(),
+      fetchSpendingData(),
+    ]);
+    
+    const historicalData = taxData.map(tax => {
+      const spending = spendingData.find(s => s.countryCode === tax.countryCode && s.year === tax.year);
+      return {
+        countryCode: tax.countryCode,
+        year: tax.year,
+        taxData: tax,
+        spendingData: spending!,
+      };
+    });
 
-  console.log(`Successfully created historical data for ${historicalData.length} countries`);
-  return historicalData;
+    console.log(`Successfully created historical data for ${historicalData.length} countries`);
+    return historicalData;
+  } catch (error) {
+    console.error('Error fetching historical data:', error);
+    throw new Error(
+      'Unable to fetch historical data due to CORS restrictions. ' +
+      'This is a browser security limitation when accessing external APIs. ' +
+      'Please visit the OECD website directly for the most current data: ' +
+      'https://stats.oecd.org/'
+    );
+  }
 };
 
 // Helper function to format currency
